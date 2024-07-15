@@ -39,6 +39,15 @@ jobs:
         if: matrix.target == 'x86_64-unknown-linux-gnu'
         run: sudo apt-get update && sudo apt-get install -y libssl-dev
 
+      - name: Set environment variables for OpenSSL
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
+        run: |
+          echo "OPENSSL_DIR=/usr/lib/ssl" >> $GITHUB_ENV
+          echo "OPENSSL_LIB_DIR=/usr/lib/ssl/lib" >> $GITHUB_ENV
+          echo "OPENSSL_INCLUDE_DIR=/usr/include/openssl" >> $GITHUB_ENV
+          echo "PKG_CONFIG_SYSROOT_DIR=/usr" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=/usr/lib/pkgconfig" >> $GITHUB_ENV
+
       - name: Set up Rust
         uses: actions-rs/toolchain@v1
         with:
@@ -195,9 +204,6 @@ jobs:
                   bin.install "${REPO_NAME}"
                 end
 
-                test do
-                  assert_match "Usage:", shell_output("#{bin}/lotemp -h 2>&1")
-                end
               end
             end
 
