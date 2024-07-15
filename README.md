@@ -5,7 +5,7 @@ Outside temperature printed directly to your terminal.
 - Current Location Based On GEO IP from ipgeolocation.io API
 - Temperature and Timezone from Open-Meteo API
 
-## Installation via Homebrew (MacOS/Linux - x86_64/arm64)
+## Installation via Homebrew (MacOS/Linux (x86_64) - x86_64/arm64)
 
 ```bash
 brew install stenstromen/tap/lotemp
