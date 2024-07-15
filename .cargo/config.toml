@@ -1,2 +1,3 @@
 [target.aarch64-unknown-linux-gnu]
 linker = "aarch64-linux-gnu-gcc"
+openssl-sys = {version = "0.9.66", features = ["vendored"]}
