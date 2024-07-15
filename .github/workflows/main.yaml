@@ -155,7 +155,7 @@ jobs:
           cat > "${FORMULA_PATH}" << EOF
           # typed: false
           # frozen_string_literal: true
-          class lotemp < Formula
+          class Lotemp < Formula
             desc "Fetch Current Local Outside Temperature In the Terminal"
             homepage "${REPO_URL}"
             version "${VERSIONTAG}"
