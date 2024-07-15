@@ -48,7 +48,7 @@ jobs:
           tar -czvf lotemp_${{ matrix.name }}.tar.gz -C ./target/${{ matrix.target }}/release lotemp
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: lotemp_${{ matrix.name }}.tar.gz
           path: lotemp_${{ matrix.name }}.tar.gz
@@ -61,8 +61,8 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
-        with:
-          path: artifacts/
+#        with:
+#          path: artifacts/
 
       - name: Generate checksums
         run: |
@@ -83,8 +83,8 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
-        with:
-          path: ./artifacts
+#        with:
+#          path: ./artifacts
     
       - name: Upload Release Checksums
         uses: actions/upload-release-asset@v1
@@ -92,7 +92,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./artifacts/lotemp_${{ github.event.release.tag_name }}_checksums.txt/lotemp_${{ github.event.release.tag_name }}_checksums.txt
+          asset_path: ./lotemp_${{ github.event.release.tag_name }}_checksums.txt/lotemp_${{ github.event.release.tag_name }}_checksums.txt
           asset_name: lotemp_${{ github.event.release.tag_name }}_checksums.txt
           asset_content_type: text/plain
 
@@ -102,7 +102,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./artifacts/lotemp_Darwin_x86_64.tar.gz/lotemp_Darwin_x86_64.tar.gz
+          asset_path: ./lotemp_Darwin_x86_64.tar.gz/lotemp_Darwin_x86_64.tar.gz
           asset_name: lotemp_Darwin_x86_64.tar.gz
           asset_content_type: application/gzip
 
@@ -112,7 +112,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./artifacts/lotemp_Darwin_arm64.tar.gz/lotemp_Darwin_arm64.tar.gz
+          asset_path: ./lotemp_Darwin_arm64.tar.gz/lotemp_Darwin_arm64.tar.gz
           asset_name: lotemp_Darwin_arm64.tar.gz
           asset_content_type: application/gzip
 
@@ -122,18 +122,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./artifacts/lotemp_Linux_x86_64.tar.gz/lotemp_Linux_x86_64.tar.gz
+          asset_path: ./lotemp_Linux_x86_64.tar.gz/lotemp_Linux_x86_64.tar.gz
           asset_name: lotemp_Linux_x86_64.tar.gz
-          asset_content_type: application/gzip
-
-      - name: Upload Linux arm64 Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./artifacts/lotemp_Linux_arm64.tar.gz/lotemp_Linux_arm64.tar.gz
-          asset_name: lotemp_Linux_arm64.tar.gz
           asset_content_type: application/gzip
 
   homebrew-tap:
