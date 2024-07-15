@@ -140,7 +140,7 @@ jobs:
           path: homebrew-tap
 
       - name: Download checksum file
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: lotemp_${{ env.VERSIONTAG }}_checksums.txt
           path: .
