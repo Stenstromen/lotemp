@@ -35,15 +35,6 @@ jobs:
         if: matrix.target == 'aarch64-unknown-linux-gnu'
         run: sudo apt-get update && sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libssl-dev pkg-config
 
-      - name: List OpenSSL directories
-        if: matrix.target == 'aarch64-unknown-linux-gnu'
-        run: |
-          ls -la /usr/lib
-          ls -la /usr/lib/ssl
-          ls -la /usr/lib/ssl/lib
-          ls -la /usr/include
-          ls -la /usr/include/openssl
-
       - name: Install libssl-dev (Linux x86_64)
         if: matrix.target == 'x86_64-unknown-linux-gnu'
         run: sudo apt-get update && sudo apt-get install -y libssl-dev
@@ -53,7 +44,7 @@ jobs:
         run: |
           # Adjust these paths according to where OpenSSL is installed for aarch64
           echo "OPENSSL_DIR=/usr/lib/ssl" >> $GITHUB_ENV
-          echo "OPENSSL_LIB_DIR=/usr/lib/ssl/lib" >> $GITHUB_ENV
+          echo "OPENSSL_LIB_DIR=/usr/include/aarch64-linux-gnu/openssl" >> $GITHUB_ENV
           echo "OPENSSL_INCLUDE_DIR=/usr/include/openssl" >> $GITHUB_ENV
           echo "PKG_CONFIG_SYSROOT_DIR=/usr/aarch64-linux-gnu" >> $GITHUB_ENV
           echo "PKG_CONFIG_PATH=/usr/lib/aarch64-linux-gnu/pkgconfig" >> $GITHUB_ENV
