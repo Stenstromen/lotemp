@@ -1,5 +1,7 @@
 # LoTemp
 
+![Logo](lotemp.webp)
+
 Outside temperature printed directly to your terminal.
 
 - Current Location Based On GEO IP from ipgeolocation.io API
