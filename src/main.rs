@@ -1,11 +1,11 @@
-mod types;
-mod config;
 mod api;
-use config::{ store_config, read_config };
-use types::{ AppConfig, GeoLocationResponse };
-use api::{ fetch_geo_location, fetch_current_temperature };
+mod config;
+mod types;
+use api::{fetch_current_temperature, fetch_geo_location};
+use config::{read_config, store_config};
 use std::env;
 use std::error::Error;
+use types::{AppConfig, GeoLocationResponse};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
