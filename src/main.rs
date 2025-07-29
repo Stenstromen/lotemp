@@ -23,7 +23,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     } else {
         let config: AppConfig = read_config()?;
         let current_temperature: String = fetch_current_temperature(config).await?;
-        println!("{}", current_temperature);
+        println!("{current_temperature}");
     }
     Ok(())
 }
