@@ -7,9 +7,19 @@ use std::env;
 use std::error::Error;
 use types::{AppConfig, GeoLocationResponse};
 
+fn get_version() -> String {
+    format!("{} v{}", env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION"))
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = env::args().collect();
+
+    if args.len() > 1 && (args[1] == "-v" || args[1] == "--version") {
+        println!("{}", get_version());
+        return Ok(());
+    }
+
     if args.len() > 1 && args[1] == "init" {
         let geo_location: GeoLocationResponse = fetch_geo_location().await?;
         let config: AppConfig = AppConfig {
@@ -26,4 +36,28 @@ async fn main() -> Result<(), Box<dyn Error>> {
         println!("{current_temperature}");
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_version_format() {
+        let version = get_version();
+        let expected = format!("{} v{}", env!("CARGO_PKG_NAME"), env!("CARGO_PKG_VERSION"));
+        assert_eq!(version, expected);
+    }
+
+    #[test]
+    fn test_version_contains_package_name() {
+        let version = get_version();
+        assert!(version.contains(env!("CARGO_PKG_NAME")));
+    }
+
+    #[test]
+    fn test_version_contains_version_number() {
+        let version = get_version();
+        assert!(version.contains(env!("CARGO_PKG_VERSION")));
+    }
 }
