@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -47,12 +48,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libssl-dev
 
       - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          target: ${{ matrix.target }}
-          override: true
+        run: |
+          rustup install stable
+          rustup target add ${{ matrix.target }}
 
       - name: Build binary
         run: |
@@ -70,6 +68,7 @@ jobs:
 
   checksum:
     needs: build
+    name: Checksum
     runs-on: ubuntu-latest
     env:
       VERSIONTAG: ${{ github.event.release.tag_name }}
@@ -93,6 +92,7 @@ jobs:
 
   upload-release-assets:
     needs: [build, checksum]
+    name: Upload Release Assets
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     steps:
