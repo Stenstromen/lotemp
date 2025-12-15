@@ -61,7 +61,7 @@ jobs:
           tar -czvf lotemp_${{ matrix.name }}.tar.gz -C ./target/${{ matrix.target }}/release lotemp
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: lotemp_${{ matrix.name }}.tar.gz
           path: lotemp_${{ matrix.name }}.tar.gz
@@ -85,7 +85,7 @@ jobs:
           done
 
       - name: Upload checksum file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: lotemp_${{ env.VERSIONTAG }}_checksums.txt
           path: lotemp_${{ env.VERSIONTAG }}_checksums.txt
